@@ -1,0 +1,173 @@
+/*1.Sección de declaraciones package e imports*/
+package compilador;
+import java_cup.runtime.*;
+/* 2.Sección componentes de código de usuario */
+parser code {:
+    public void report_error(String message, Object info) {
+       	StringBuffer m = new StringBuffer("Error");
+		System.out.println("Mensaje: "+message);
+		System.out.println("info: "+info.toString());
+		if(info instanceof java_cup.runtime.Symbol) {
+			java_cup.runtime.Symbol s=((java_cup.runtime.Symbol)info);
+			/* Comprueba si el numero de línea es mayor o igual que cero */
+			if(s.left >= 0) {
+				m.append(" en linea "+(s.left+1));
+				/*Comprueba si el numero de columna es mayoro igual que cero */
+				if (s.right >= 0)
+					m.append(", y columna "+(s.right+1));
+			}
+         if(info.toString().equals("#3")){
+              System.out.println("Ingresar los animales según su clasificació");
+              System.out.println("Animal Mamifero Incorrecto");
+}
+                if(info.toString().equals("#2")){
+              System.out.println("Ingresar los animales según su clasificació");
+              System.out.println("Animal Domestico Incorrecto");
+}
+       if(info.toString().equals("#4")){
+              System.out.println("Ingresar los animales según su clasificació");
+              System.out.println("Animal Ave Incorrecto");
+}
+         if(info.toString().equals("#11")){
+              System.out.println("Parametro no valido");
+              
+}
+              if(info.toString().equals("#7")){
+              System.out.println("Ingresar los animales según su clasificació");
+              System.out.println("Animal Reptil Incorrecto");
+}
+                 if(info.toString().equals("#6")){
+              System.out.println("Ingresar los animales según su clasificació");
+              System.out.println("Animal Salvaje Incorrecto");
+}
+                 if(info.toString().equals("#8")){
+              System.out.println("Ingresar los animales según su clasificació");
+              System.out.println("Animal Marino Incorrecto");
+}
+                   if(info.toString().equals("#5")){
+              System.out.println("Ingresar los animales según su clasificació");
+              System.out.println("Animal Roedor Incorrecto");
+}
+                 if(info.toString().equals("#0")){
+              System.out.println("ERROR **Falta TokenResultado**");
+             
+}
+                  if(info.toString().equals("#9")){
+              System.out.println("ERROR **TokenOperador Incorecto");
+              
+}
+
+                  if(info.toString().equals("#10")){
+              System.out.println("ERROR **No ha ingresado ninguna clasificación");
+              
+}
+
+		}
+		m.append(" : "+message);
+		System.err.println(m);
+    }
+    public void report_fatal_error(String message, Object info) {
+       //	report_error(message, info);
+	//	System.exit(1);
+ 
+}
+
+:};
+
+
+/*­­­ Declaración de la lista de símbolos de la gramática ­­­­­*/
+
+/* 3.Produciones de flujo normal */
+terminal  TokenDomesticos,TokenMamiferos,TokenAves,TokenRoedores,TokenSalvajes,TokenReptiles,
+          TokenMarinos,TokenOperador,TokenResultado,TokenERROR;
+
+non terminal programa, linea, estructura1, estructura2,estructura3, estructura4, estructura5,
+             estructura6,estructura7;
+/*­­­ domestico, mamifero,salvaje,reptil,marino,roedor,ave;-­­­­­*/ 
+
+/*­­­ Declaración  gramática ­­­­­*/
+programa ::= linea:l {:System.out.println(l);:};
+
+linea ::= estructura1 TokenOperador estructura1 TokenOperador estructura1 TokenOperador estructura1 TokenResultado
+          {:RESULT = ("Es un animal Domestico"); :}
+        |estructura1 TokenOperador estructura1 TokenOperador estructura1 TokenResultado
+          {:RESULT = ("Es un animal Domestico"); :}
+        |estructura1 TokenOperador estructura1 TokenResultado
+        {:RESULT = ("Es un animal Domestico"); :}
+        | estructura1 TokenResultado {:RESULT = ("Es un animal Domestico");:}
+        | estructura1 {:RESULT = ("Es un animal Domestico"); :}
+         /*­­­------­­­­­*/ 
+        | estructura2 TokenOperador estructura2 TokenOperador estructura2 TokenOperador estructura2 TokenResultado
+          {:RESULT = ("Es un animal Mamifero");:}
+        | estructura2 TokenOperador estructura2 TokenOperador estructura2 TokenResultado
+          {:RESULT = ("Es un animal Mamifero");:}
+        | estructura2 TokenOperador estructura2 TokenResultado
+          {:RESULT = ("Es un animal Mamifero");:}
+        | estructura2 TokenResultado {:RESULT = ("Es un animal Mamifero");:}
+        | estructura2 {:RESULT = ("Es un animal Mamifero"); :}
+           /*­­­------­­­­­*/ 
+        | estructura3 TokenOperador estructura3 TokenOperador estructura3 TokenOperador estructura3 TokenResultado
+          {:RESULT = ( "Es un animal Salvaje"); :}
+        | estructura3 TokenOperador estructura3 TokenOperador estructura3 TokenResultado
+          {:RESULT = ( "Es un animal Salvaje"); :}
+        | estructura3 TokenOperador estructura3 TokenResultado
+          {:RESULT = ( "Es un animal Salvaje"); :}
+        | estructura3 TokenResultado {:RESULT = ("Es un animal Salvaje");:}
+        | estructura3 {:RESULT = ("Es un animal Salvaje");:}
+          /*­­­------­­­­­*/
+        | estructura4 TokenOperador estructura4 TokenOperador estructura4 TokenOperador estructura4 TokenResultado
+          {:RESULT = ("Es un animal Reptil");:}
+        | estructura4 TokenOperador estructura4 TokenOperador estructura4 TokenResultado
+          {:RESULT = ("Es un animal Reptil");:}
+        | estructura4 TokenOperador estructura4 TokenResultado
+          {:RESULT = ("Es un animal Reptil");:}
+        | estructura4 TokenResultado {:RESULT = ("Es un animal Reptil");:}
+        | estructura4 {:RESULT = ("Es un animal Reptil");:}
+          /*­­­------­­­­­*/
+        | estructura5 TokenOperador estructura5 TokenOperador estructura5 TokenOperador estructura5 TokenResultado
+          {:RESULT = ("Es un animal Marino");:}
+        | estructura5 TokenOperador estructura5 TokenOperador estructura5 TokenResultado
+          {:RESULT = ("Es un animal Marino");:}
+        | estructura5 TokenOperador estructura5 TokenResultado
+          {:RESULT = ("Es un animal Marino");:}
+        | estructura5 TokenResultado {:RESULT = ("Es un animal Marino");:}
+        | estructura5 {:RESULT = ("Es un animal Marino");:}
+           /*­­­------­­­­­*/
+        | estructura6 TokenOperador estructura6 TokenOperador estructura6 TokenOperador estructura6 TokenResultado
+          {:RESULT = ("Es un animal Roedor");:}
+        | estructura6 TokenOperador estructura6 TokenOperador estructura6 TokenResultado
+          {:RESULT = ("Es un animal Roedor");:}
+        | estructura6 TokenOperador estructura6 TokenResultado
+          {:RESULT = ("Es un animal Roedor");:}
+        | estructura6 TokenResultado {:RESULT = ("Es un animal Roedro");:}
+        | estructura6 {:RESULT = ("Es un animal Roedro");:}
+          /*­­­------­­­­­*/
+        | estructura7 TokenOperador estructura7 TokenOperador estructura7 TokenOperador estructura7 TokenResultado
+          {:RESULT = ("Es un animal Ave");:}
+        | estructura7 TokenOperador estructura7 TokenOperador estructura7 TokenResultado
+          {:RESULT = ("Es un animal Ave");:}
+        | estructura7 TokenOperador estructura7 TokenResultado
+          {:RESULT = ("Es un animal Ave");:}
+        | estructura7 TokenResultado {:RESULT = ("Es un animal Ave");:}
+        | estructura7 {:RESULT =  ("Es un animal Ave");:};
+        
+
+estructura1::= TokenDomesticos;
+estructura2::= TokenMamiferos;
+estructura3::= TokenSalvajes;
+estructura4::= TokenReptiles;
+estructura5::= TokenMarinos;
+estructura6::= TokenRoedores;
+estructura7::= TokenAves;
+
+/*­­­-----
+domestico ::= Gato|Perro|Pato|Caballo;
+mamifero  ::= Conejo|Vaca|Cerdo|Cabra;
+salvaje   ::= León|Puma|Jirafa|Oso;
+reptil    ::= Tortuga|Serpiente|Iguana|Lagarto;
+marino    ::= Delfín|Ballena|Tiburón|Pulpo;
+roedor    ::= Ratón|Ardilla|Hámster|Cuy;
+ave       ::= Águila|Loro|Paloma|Condor;
+-­­­­­*/
+
+
